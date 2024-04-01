@@ -10,11 +10,11 @@ Una API REST (Application Programming Interface representational state transfer)
 
 ### 3. Métodos HTTP:
 * Los métodos HTTP son verbos que indican la acción que se realizará sobre un recurso. Los principales métodos utilizados en una API REST son:
-        * `GET`: Recuperar datos.
-        * `POST`: Crear nuevos datos.
-        * `PUT`: Actualizar datos existentes **completamente**.
-        * `PATCH`: Actualizar datos existentes **parcialmente**.
-        * `DELETE`: Eliminar datos.
+    * `GET`: Recuperar datos.
+    * `POST`: Crear nuevos datos.
+    * `PUT`: Actualizar datos existentes **completamente**.
+    * `PATCH`: Actualizar datos existentes **parcialmente**.
+    * `DELETE`: Eliminar datos.
 
 ### 4. Solicitudes y respuestas:
 * Las solicitudes HTTP se envían al servidor para realizar acciones sobre los recursos. Cada solicitud incluye un método, una URI y, opcionalmente, datos adicionales en el cuerpo o parámetros de consulta.
@@ -65,7 +65,6 @@ El proyecto Rest tiene las siguientes dependencias:
 ### Método para Inicializar el Servidor:
 
 ```
-        // Método para iniciar el servidor
         start( ) {
           
             this.app.listen( this.port, ( ) => {
