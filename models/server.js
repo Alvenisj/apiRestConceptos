@@ -1,59 +1,55 @@
-import express from 'express';
-import path from 'path';
-import cors from 'cors';
+import express from "express";
+import path from "path";
+import cors from "cors";
 
-import routes from '../routes/userRoutes.js';
-
-
+import routes from "../routes/userRoutes.js";
+import { dbConnection } from "../database/config.js";
 
 // Definimos nuestra clase para el servidor
-    export class Server {
+export class Server {
+  constructor(port) {
+    this.port = process.env.PORT || 8081;
+    this.app = express();
+    this.usuariosPath = "/api/usuarios";
 
-        constructor( port ) {
+    //Conectar DB
+    this.conectarBaseDatos();
 
-            this.port = process.env.PORT || 8081;
-            this.app = express();
-            this.usuariosPath = '/api/usuarios';
-            // Los middlewares de mi aplicación
-            this.configureMiddlewares();
-            // rutas de mi aplicación
-            this.configureRoutes();
-            
-        }
+    // Los middlewares de mi aplicación
+    this.configureMiddlewares();
 
-        // Configuración de middlewares
-        configureMiddlewares( ) {
+    // rutas de mi aplicación
+    this.configureRoutes();
+  }
 
-            // Lectura y parse del body
-            this.app.use( express.json() );
+  // Conectar a la Base de Datos
+  async conectarBaseDatos() {
+    await dbConnection();
+  }
 
-            // Configuración de mis Cors "Cross-Origin Resource Sharing"
-            this.app.use( cors() );
+  // Configuración de middlewares
+  configureMiddlewares() {
+    // Lectura y parse del body
+    this.app.use(express.json());
 
-            // Configuración para servir archivos estáticos desde la carpeta 'public'
-            const publicPath = path.join( process.cwd(), 'public' );
-            // console.log(publicPath)
-            this.app.use( express.static( publicPath ) );
+    // Configuración de mis Cors "Cross-Origin Resource Sharing"
+    this.app.use(cors());
 
-        }
+    // Configuración para servir archivos estáticos desde la carpeta 'public'
+    const publicPath = path.join(process.cwd(), "public");
+    // console.log(publicPath)
+    this.app.use(express.static(publicPath));
+  }
 
+  // Configuración de rutas
+  configureRoutes() {
+    this.app.use(this.usuariosPath, routes);
+  }
 
-
-         // Configuración de rutas
-        configureRoutes( ) {
-                
-            this.app.use( this.usuariosPath, routes );
-
-        }
-
-         // Método para iniciar el servidor
-        start( ) {
-          
-            this.app.listen( this.port, ( ) => {
-                console.log(`Servidor corriendo en el puerto: ${ this.port }`);
-            });
-        }
-
-
-
-    }
+  // Método para iniciar el servidor
+  start() {
+    this.app.listen(this.port, () => {
+      console.log(`Servidor corriendo en el puerto: ${this.port}`);
+    });
+  }
+}

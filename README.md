@@ -64,8 +64,7 @@ El proyecto Rest tiene las siguientes dependencias:
 
 ### Método para Inicializar el Servidor:
 
-```
-        start( ) {
+```start( ) {
           
             this.app.listen( this.port, ( ) => {
                 console.log(`Servidor corriendo en el puerto: ${ this.port }`);
