@@ -5,7 +5,6 @@ import {
   getUserController,
   createUserController,
   updatePutUserController,
-  updatePatchUserController,
   deleteUserController,
 } from "../controllers/userController.js";
 
